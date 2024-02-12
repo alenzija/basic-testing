@@ -10,7 +10,7 @@ import {
 describe('BankAccount', () => {
   let account: BankAccount;
 
-  beforeAll(() => {
+  beforeEach(() => {
     account = getBankAccount(0);
   });
 
@@ -43,11 +43,13 @@ describe('BankAccount', () => {
   });
 
   test('should withdraw money', () => {
+    account.deposit(10);
     account.withdraw(5);
     expect(account.getBalance()).toBe(5);
   });
 
   test('should transfer money', () => {
+    account.deposit(10);
     const transferAccount = new BankAccount(0);
     account.transfer(1, transferAccount);
     expect(transferAccount.getBalance()).toBe(1);
