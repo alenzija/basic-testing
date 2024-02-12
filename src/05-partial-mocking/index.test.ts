@@ -12,9 +12,9 @@ jest.mock('./index', () => {
   };
 });
 
-const consoleLogMock = jest.spyOn(console, 'log');
-
 describe('partial mocking', () => {
+  console.log = jest.fn();
+
   afterAll(() => {
     jest.unmock('./index');
   });
@@ -23,11 +23,11 @@ describe('partial mocking', () => {
     partialModule.mockOne();
     partialModule.mockTwo();
     partialModule.mockThree();
-    expect(consoleLogMock).not.toHaveBeenCalled();
+    expect(console.log).not.toHaveBeenCalled();
   });
 
   test('unmockedFunction should log into console', () => {
     partialModule.unmockedFunction();
-    expect(consoleLogMock).toHaveBeenCalled();
+    expect(console.log).toHaveBeenCalledWith('I am not mocked');
   });
 });
